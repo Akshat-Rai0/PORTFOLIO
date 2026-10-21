@@ -1,0 +1,25 @@
+.about {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.note {
+  margin: 0;
+  max-width: 300px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+@media (max-width: 1024px) {
+  .about {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    grid-template-columns: 1fr;
+  }
+}

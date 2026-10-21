@@ -1,0 +1,12 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #000;
+  overflow: hidden;
+}
+
+.layer canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

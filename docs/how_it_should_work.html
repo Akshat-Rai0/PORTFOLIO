@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Behavior spec — Akshat portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #000000; --surface: #0a0a0a; --border: #2a2a2a; --divider: #1c1c1c;
+      --text: #f2f2f2; --text-soft: #c9c9c9; --muted: #9a9a9a; --red: #ed0000;
+      --red-text: #ff5a5a; --teal: #00e88b;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: "Space Grotesk", system-ui, sans-serif; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 64px 32px 96px; }
+    .label { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 14px; color: var(--teal); }
+    h1 { font-size: clamp(36px, 6vw, 56px); line-height: 0.95; margin: 12px 0 24px; }
+    h1 span { color: var(--red); }
+    h2 { font-size: 24px; margin: 40px 0 12px; }
+    p, li { color: var(--text-soft); font-size: 16px; line-height: 1.55; }
+    .when {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 16px 18px; margin: 10px 0;
+    }
+    .when strong { color: var(--text); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; }
+    code { color: var(--teal); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="label">01 / Behavior</p>
+    <h1>How it should work<span>.</span></h1>
+    <p>Every interaction is written as “when X happens, Y occurs.” Native scroll only. No Lenis. GSAP for motion unless CSS is specified.</p>
+
+    <h2>6.1 Hero + Vanta</h2>
+    <div class="when"><strong>WHEN</strong> the page loads on a viewport ≥ 768px, motion is allowed, and WebGL exists, <strong>THEN</strong> Vanta BIRDS is created on the hero with the exact config (red/teal birds on black), and THREE r134 is passed in.</div>
+    <div class="when"><strong>WHEN</strong> the component unmounts or StrictMode remounts, <strong>THEN</strong> <code>effect.destroy()</code> always runs so canvases do not stack.</div>
+    <div class="when"><strong>WHEN</strong> the hero leaves the viewport, <strong>THEN</strong> the Vanta effect is destroyed (GPU free for the carousel). <strong>WHEN</strong> it returns, <strong>THEN</strong> the effect is recreated.</div>
+    <div class="when"><strong>WHEN</strong> viewport &lt; 768px, or <code>prefers-reduced-motion: reduce</code>, or WebGL is missing, <strong>THEN</strong> no Vanta/Three chunk is downloaded; a static SVG scatter of ~16 chevrons is shown instead.</div>
+    <div class="when"><strong>WHEN</strong> the user clicks About / Work / Contact, <strong>THEN</strong> the page smooth-scrolls to that section (GSAP ScrollTo, or native if reduced motion).</div>
+    <div class="when"><strong>WHEN</strong> the user clicks See my projects, <strong>THEN</strong> scroll goes to <code>#work</code>. GitHub opens the profile. Resume opens <code>resumeUrl</code> in a new tab with <code>rel="noopener noreferrer"</code>.</div>
+
+    <h2>6.2 Section reveals</h2>
+    <div class="when"><strong>WHEN</strong> a section’s top hits 80% of the viewport, <strong>THEN</strong> its label and main content fade/translate in (opacity 0→1, y 32→0, 0.7s, power3.out), once. No pin, no scrub, no reverse.</div>
+    <div class="when"><strong>WHEN</strong> the hero loads, <strong>THEN</strong> hero copy staggers in at 0.1s. <strong>WHEN</strong> reduced motion is on, <strong>THEN</strong> content is visible immediately.</div>
+
+    <h2>6.3 Agent trace</h2>
+    <div class="when"><strong>WHEN</strong> the terminal’s top reaches 60% of the viewport, <strong>THEN</strong> a one-shot GSAP timeline plays: command types in; three PLAN lines appear (~0.45s apart); 0.7s pause; three EXECUTE lines with ✓ pop; short pause; RESULT types ~25ms/char; teal cursor blinks.</div>
+    <div class="when"><strong>WHEN</strong> the timeline has not fired, <strong>THEN</strong> lines stay in layout (opacity/visibility, never display:none) so the card does not resize.</div>
+    <div class="when"><strong>WHEN</strong> reduced motion is on, <strong>THEN</strong> every line is shown instantly, no typing. <strong>WHEN</strong> JS is disabled, <strong>THEN</strong> lines are visible in the HTML.</div>
+    <div class="when"><strong>WHEN</strong> <code>projects.js</code> length changes, <strong>THEN</strong> the EXECUTE line shows that count dynamically.</div>
+
+    <h2>6.4 Work carousel</h2>
+    <div class="when"><strong>WHEN</strong> projects load, <strong>THEN</strong> they come only from <code>src/data/projects.js</code>. A mapping layer converts each project into the card shape the carousel expects. Missing media or <code>pagesUrl</code> never crashes. Duplicate/missing ids warn in development.</div>
+    <div class="when"><strong>WHEN</strong> the user drags, swipes, uses prev/next, wheels with horizontal intent, or presses Left/Right while the stage is focused, <strong>THEN</strong> the active index wraps infinitely and an aria-live region announces the change.</div>
+    <div class="when"><strong>WHEN</strong> the center index changes, <strong>THEN</strong> the previous <code>&lt;video&gt;</code> is paused and unmounted; only the new center card may mount a muted, looping, playsInline, autoPlaying video. Other cards show poster (or gradient) only.</div>
+    <div class="when"><strong>WHEN</strong> reduced motion is on, <strong>THEN</strong> videos do not autoplay; posters show.</div>
+    <div class="when"><strong>WHEN</strong> <code>pagesUrl</code> is empty, <strong>THEN</strong> the live link is a disabled “Coming soon” pill. Otherwise it opens in a new tab.</div>
+
+    <h2>Stack marquee</h2>
+    <div class="when"><strong>WHEN</strong> the row is idle, <strong>THEN</strong> the duplicated track translates 0 → −50% (row 2 reversed), looping. <strong>WHEN</strong> the user hovers or focus is inside a row, <strong>THEN</strong> animation pauses. <strong>WHEN</strong> reduced motion is on, <strong>THEN</strong> rows become a static wrapping grid.</div>
+
+    <h2>Focus, keyboard, reduced motion (global)</h2>
+    <div class="when"><strong>WHEN</strong> any control is focused from the keyboard, <strong>THEN</strong> a visible teal focus ring appears.</div>
+    <div class="when"><strong>WHEN</strong> <code>prefers-reduced-motion: reduce</code>, <strong>THEN</strong> Vanta is skipped, marquees stop, traces and reveals are instant, and video does not autoplay.</div>
+  </div>
+</body>
+</html>

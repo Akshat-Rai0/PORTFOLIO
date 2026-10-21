@@ -1,0 +1,119 @@
+.stage {
+  position: relative;
+  height: 700px;
+  border-radius: 28px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.flexWrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.centerVideo {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(360px, 42%);
+  height: min(500px, 72%);
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  border-radius: 28px;
+  pointer-events: none;
+  border: 1px solid var(--red);
+}
+
+.ctrl {
+  position: absolute;
+  bottom: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--text);
+  font-size: 28px;
+  line-height: 1;
+  z-index: 4;
+}
+
+.prev {
+  left: 20px;
+}
+
+.next {
+  right: 20px;
+}
+
+.caption {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.captionTitle {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.counter {
+  margin: 8px 0 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.soon {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.liveLink {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--teal);
+  text-decoration: none;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .stage {
+    height: 560px;
+  }
+
+  .ctrl {
+    width: 44px;
+    height: 44px;
+  }
+
+  .row {
+    gap: 8px;
+  }
+}

@@ -1,0 +1,106 @@
+.hero {
+  position: relative;
+  min-height: 780px;
+  isolation: isolate;
+  overflow: hidden;
+  border-bottom: 1px solid var(--divider);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  min-height: 780px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px var(--pad-x) 96px;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 1.6vw, 14px);
+  color: var(--teal);
+  margin: 0 0 18px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(48px, 10vw, 104px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -2px;
+}
+
+.period {
+  color: var(--red);
+}
+
+.sub {
+  margin: 24px 0 0;
+  max-width: 620px;
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--text-soft);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.primary,
+.github,
+.resume,
+.resumeDisabled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.primary {
+  background: var(--red);
+  color: #fff;
+  border: 1px solid var(--red);
+}
+
+.github {
+  color: var(--teal);
+  border: 1px solid var(--teal);
+}
+
+.resume,
+.resumeDisabled {
+  color: var(--text);
+  border: 1px solid var(--text);
+}
+
+.resumeDisabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.scroll {
+  position: absolute;
+  left: var(--pad-x);
+  bottom: 28px;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+@media (max-width: 768px) {
+  .hero,
+  .content {
+    min-height: 100svh;
+  }
+}

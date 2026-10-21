@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project definition — Akshat portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #000000; --surface: #0a0a0a; --surface-2: #0b0b0e; --terminal: #050505;
+      --border: #2a2a2a; --divider: #1c1c1c; --text: #f2f2f2; --text-soft: #c9c9c9;
+      --muted: #9a9a9a; --red: #ed0000; --red-text: #ff5a5a; --teal: #00e88b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: "Space Grotesk", system-ui, sans-serif; line-height: 1.5;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 64px 32px 96px; }
+    .label { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 14px; color: var(--teal); }
+    h1 { font-size: clamp(36px, 6vw, 56px); line-height: 0.95; letter-spacing: -1px; margin: 12px 0 24px; }
+    h1 span { color: var(--red); }
+    h2 { font-size: 28px; margin: 48px 0 16px; }
+    p, li { color: var(--text-soft); font-size: 17px; }
+    ul { padding-left: 20px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px; margin: 16px 0;
+    }
+    .meta { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; color: var(--muted); }
+    a { color: var(--teal); }
+    hr { border: 0; border-top: 1px solid var(--divider); margin: 40px 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="label">00 / Project definition</p>
+    <h1>Akshat’s portfolio<span>.</span></h1>
+    <p class="meta">v1 · single-page React site · GitHub Pages</p>
+
+    <h2>Who it is for</h2>
+    <div class="card">
+      <p><strong style="color:var(--text)">Owner:</strong> Akshat, third-year B.Tech student, Computer Science &amp; Engineering (AI &amp; ML), Birla Institute of Technology (BIT) Mesra, graduating 2028. Target track: Agentic AI.</p>
+      <p><strong style="color:var(--text)">Audience:</strong> recruiters and engineers scanning quickly. The site must prove he builds LLM agents that plan, execute, and retrieve — not a blog, not a CMS.</p>
+      <p><strong style="color:var(--text)">GitHub:</strong> <a href="https://github.com/Akshat-Rai0">github.com/Akshat-Rai0</a></p>
+    </div>
+
+    <h2>Goals</h2>
+    <ul>
+      <li>Present a scannable, high-contrast dark portfolio that looks like an agent runtime, not a generic student template.</li>
+      <li>Keep all project and skill content data-driven so adding work is a one-file edit.</li>
+      <li>Ship to GitHub Pages with a configurable Vite <code>base</code>.</li>
+      <li>Honor reduced motion, keyboard access, and WCAG AA on black.</li>
+      <li>Deliver a reusable case-study HTML template for later per-repo GitHub Pages.</li>
+    </ul>
+
+    <h2>Scope (v1)</h2>
+    <div class="card">
+      <p><strong style="color:var(--text)">In scope:</strong> a single-page React site with sections in this order: Hero, About (agent trace), Stack (3-row skills banner), Work (Flex Carousel of projects), Contact. Resume button, phone fallback (static hero + stacked layout under 768px), data-driven projects and skills, reduced-motion support, GitHub Pages deploy, and a reusable case-study page template (static HTML/CSS/JS).</p>
+    </div>
+
+    <h2>Out of scope</h2>
+    <ul>
+      <li>Blog, CMS, or any backend</li>
+      <li>Contact-form backend (links only)</li>
+      <li>Light/dark theme toggle</li>
+      <li>Lenis or any scroll hijacking</li>
+      <li>Analytics and i18n</li>
+      <li>Filled case-study content (template only)</li>
+    </ul>
+
+    <h2>Success criteria (definition of done)</h2>
+    <ul>
+      <li>All five docs exist in <code>/docs</code>.</li>
+      <li>The site builds, runs, and visually matches the design tokens and section layouts.</li>
+      <li>Terminal plays once on scroll; reduced-motion shows it instantly.</li>
+      <li>Exactly 6 skill tiles visible per row on desktop (3 on mobile); rows loop seamlessly.</li>
+      <li>Only the center project card plays video.</li>
+      <li>Adding a project or skill requires editing only a data file.</li>
+      <li>Phone (&lt;768px) shows the static bird fallback; Vanta/Three are not downloaded.</li>
+      <li>Deploys to GitHub Pages through the included workflow.</li>
+    </ul>
+    <hr />
+    <p class="meta">Filename kept as <code>project_difination.html</code> per build prompt.</p>
+  </div>
+</body>
+</html>

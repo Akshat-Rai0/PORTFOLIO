@@ -1,0 +1,92 @@
+.block {
+  margin-top: 28px;
+}
+
+.caption {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.window {
+  position: relative;
+  max-width: 1272px;
+  overflow: hidden;
+  --tile-w: calc((100% - 5 * 16px) / 6);
+}
+
+@media (max-width: 768px) {
+  .window {
+    --tile-w: calc((100% - 2 * 16px) / 3);
+  }
+}
+
+.track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-left linear infinite;
+}
+
+.reverse {
+  animation-name: marquee-right;
+}
+
+.window:hover .track,
+.window:focus-within .track {
+  animation-play-state: paused;
+}
+
+.static .track {
+  animation: none;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  pointer-events: none;
+}
+
+.left {
+  left: 0;
+  background: linear-gradient(90deg, #000, transparent);
+}
+
+.right {
+  right: 0;
+  background: linear-gradient(270deg, #000, transparent);
+}
+
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
