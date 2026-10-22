@@ -6,6 +6,12 @@ export default defineConfig({
   plugins: [react()],
   build: {
     sourcemap: false,
+    chunkSizeWarningLimit: 700,
+    modulePreload: {
+      resolveDependencies(_filename, deps) {
+        return deps.filter((dep) => !dep.includes("flex-carousel") && !dep.includes("vanta-three"));
+      }
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {

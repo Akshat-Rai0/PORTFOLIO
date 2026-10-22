@@ -15,7 +15,7 @@ export default function AgentTrace({ projectCount }) {
   useGSAP(
     () => {
       const root = rootRef.current;
-      const command = root.querySelector("[data-line='command'] .rest");
+      const command = root.querySelector("[data-command]");
       const plans = root.querySelectorAll("[data-kind='plan']");
       const executes = root.querySelectorAll("[data-kind='execute']");
       const checks = root.querySelectorAll("[data-check]");
@@ -24,7 +24,7 @@ export default function AgentTrace({ projectCount }) {
       const cursor = root.querySelector("[data-cursor]");
 
       if (reduced) {
-        gsap.set([command.parentElement, ...plans, ...executes, result, cursor], {
+        gsap.set([command.closest("p"), ...plans, ...executes, result, cursor], {
           opacity: 1,
           y: 0,
           visibility: "visible"
@@ -34,7 +34,7 @@ export default function AgentTrace({ projectCount }) {
         return;
       }
 
-      gsap.set([command.parentElement, ...plans, ...executes, result], {
+      gsap.set([command.closest("p"), ...plans, ...executes, result], {
         opacity: 0,
         y: 6,
         visibility: "visible"
@@ -53,7 +53,7 @@ export default function AgentTrace({ projectCount }) {
       });
 
       command.textContent = "";
-      tl.to(command.parentElement, { opacity: 1, y: 0, duration: 0.2 });
+      tl.to(command.closest("p"), { opacity: 1, y: 0, duration: 0.2 });
       tl.to(command, { duration: 0.55, text: fullCommand, ease: "none" });
       plans.forEach((line) => {
         tl.to(line, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, "+=0.1");
@@ -86,7 +86,7 @@ export default function AgentTrace({ projectCount }) {
       <div className={styles.body}>
         <p data-line="command" className={styles.line}>
           <span className={styles.tag} />
-          <span className={styles.rest} data-full={`$ agent run --task "introduce akshat"`}>
+          <span className={styles.rest} data-command data-full={`$ agent run --task "introduce akshat"`}>
             $ agent run --task "introduce akshat"
           </span>
         </p>

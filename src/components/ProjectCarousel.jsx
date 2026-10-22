@@ -54,7 +54,6 @@ function DomStage({ projects, index, setIndex, reduced, stageRef }) {
             project={project}
             index={projectIndex}
             slot={slot}
-            total={total}
             playVideo={slot === 0}
             reducedMotion={reduced}
           />

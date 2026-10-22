@@ -12,7 +12,7 @@ export default function SkillRow({ row }) {
         <span>{row.label}</span>
         <span aria-hidden="true">{row.direction}</span>
       </div>
-      <div className={`${styles.window} ${reduced ? styles.static : ""}`}>
+      <div className={`${styles.window} ${reduced ? styles.static : ""}`} tabIndex={0}>
         <div
           className={`${styles.track} ${row.reverse ? styles.reverse : ""}`}
           style={{ animationDuration: row.duration }}

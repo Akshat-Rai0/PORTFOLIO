@@ -10,7 +10,7 @@ function PlayIcon() {
   );
 }
 
-export default function ProjectCard({ project, index, slot, total, playVideo, reducedMotion }) {
+export default function ProjectCard({ project, index, slot, playVideo, reducedMotion }) {
   const videoRef = useRef(null);
   const number = String(index + 1).padStart(2, "0");
   const glow = index % 2 === 0 ? "red" : "teal";

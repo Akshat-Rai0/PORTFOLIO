@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,12 +9,26 @@ import { useIsMobile } from "../hooks/useIsMobile.js";
 import { useReducedMotion } from "../hooks/useReducedMotion.js";
 import styles from "./Hero.module.css";
 
+function hasWebGL() {
+  try {
+    const canvas = document.createElement("canvas");
+    return Boolean(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
+  } catch {
+    return false;
+  }
+}
+
 export default function Hero() {
   const heroRef = useRef(null);
   const reduced = useReducedMotion();
   const isMobile = useIsMobile(768);
-  const fallback = reduced || isMobile;
+  const [webgl, setWebgl] = useState(() => hasWebGL());
+  const fallback = reduced || isMobile || !webgl;
   const [vantaOn, setVantaOn] = useState(true);
+
+  useEffect(() => {
+    setWebgl(hasWebGL());
+  }, []);
 
   useGSAP(
     () => {
@@ -61,7 +75,17 @@ export default function Hero() {
           execute and retrieve.
         </p>
         <div className={styles.actions} data-hero-item>
-          <a className={styles.primary} href="#work">
+          <a
+            className={styles.primary}
+            href="#work"
+            onClick={(event) => {
+              const work = document.getElementById("work");
+              if (!work) return;
+              event.preventDefault();
+              if (reduced) work.scrollIntoView();
+              else gsap.to(window, { duration: 0.85, ease: "power3.inOut", scrollTo: { y: work, autoKill: true } });
+            }}
+          >
             See my projects
           </a>
           <a className={styles.github} href={site.github} target="_blank" rel="noopener noreferrer">

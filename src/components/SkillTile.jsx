@@ -1,8 +1,8 @@
-import * as SimpleIcons from "simple-icons";
+import { getSimpleIcon } from "../data/icons.js";
 import styles from "./SkillTile.module.css";
 
 export default function SkillTile({ skill, accent }) {
-  const icon = skill.icon ? SimpleIcons[skill.icon] : null;
+  const icon = getSimpleIcon(skill.icon);
 
   return (
     <div className={`${styles.tile} ${accent === "red" ? styles.lead : ""}`}>

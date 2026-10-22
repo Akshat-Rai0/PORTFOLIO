@@ -12,8 +12,8 @@ export const skillRows = [
       { id: "rag", name: "RAG", icon: null, mono: "RAG" },
       { id: "huggingface", name: "Hugging Face", icon: "siHuggingface", mono: "HF" },
       { id: "ollama", name: "Ollama", icon: "siOllama", mono: "OL" },
-      { id: "chromadb", name: "ChromaDB", icon: "siChroma", mono: "CH" },
-      { id: "langsmith", name: "LangSmith", icon: "siLangsmith", mono: "LS" },
+      { id: "chromadb", name: "ChromaDB", icon: null, mono: "CH" },
+      { id: "langsmith", name: "LangSmith", icon: null, mono: "LS" },
       { id: "llm-apis", name: "LLM APIs", icon: null, mono: "LLM" }
     ]
   },
@@ -30,7 +30,7 @@ export const skillRows = [
       { id: "sklearn", name: "scikit-learn", icon: "siScikitlearn", mono: "SK" },
       { id: "numpy", name: "NumPy", icon: "siNumpy", mono: "NP" },
       { id: "pandas", name: "Pandas", icon: "siPandas", mono: "PD" },
-      { id: "lightgbm", name: "LightGBM", icon: "siLightgbm", mono: "LGB" },
+      { id: "lightgbm", name: "LightGBM", icon: null, mono: "LGB" },
       { id: "opencv", name: "OpenCV", icon: "siOpencv", mono: "CV" },
       { id: "yolov11", name: "YOLOv11", icon: null, mono: "YO" },
       { id: "clip", name: "CLIP", icon: null, mono: "CL" },

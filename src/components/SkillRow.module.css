@@ -15,12 +15,13 @@
   position: relative;
   max-width: 1272px;
   overflow: hidden;
-  --tile-w: calc((100% - 5 * 16px) / 6);
+  container-type: inline-size;
+  --tile-w: calc((100cqw - 5 * 16px) / 6);
 }
 
 @media (max-width: 768px) {
   .window {
-    --tile-w: calc((100% - 2 * 16px) / 3);
+    --tile-w: calc((100cqw - 2 * 16px) / 3);
   }
 }
 

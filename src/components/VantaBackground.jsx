@@ -27,7 +27,8 @@ export default function VantaBackground({ active, fallback }) {
         import("vanta/dist/vanta.birds.min"),
         import("three")
       ]);
-      if (cancelled || !el) return;
+      if (cancelled || !el || el.dataset.vantaReady === "1") return;
+      el.dataset.vantaReady = "1";
       effect = BIRDS({
         el,
         THREE,
@@ -48,10 +49,15 @@ export default function VantaBackground({ active, fallback }) {
         alignment: 48.0,
         cohesion: 43.0
       });
+      if (cancelled && effect) {
+        effect.destroy();
+        delete el.dataset.vantaReady;
+      }
     })();
 
     return () => {
       cancelled = true;
+      delete el?.dataset.vantaReady;
       if (effect) {
         effect.destroy();
         effect = undefined;
