@@ -42,12 +42,12 @@ export default function VantaBackground({ active, fallback }) {
         backgroundColor: 0x000000,
         color1: 0xed0000,
         color2: 0x00e88b,
-        birdSize: 1.2,
+        birdSize: 1.35,
         wingSpan: 28.0,
-        speedLimit: 10.0,
-        separation: 48.0,
-        alignment: 48.0,
-        cohesion: 43.0
+        speedLimit: 7.0,
+        separation: 80.0,
+        alignment: 65.0,
+        cohesion: 70.0
       });
       if (cancelled && effect) {
         effect.destroy();

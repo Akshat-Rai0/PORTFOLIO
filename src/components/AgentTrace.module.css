@@ -1,8 +1,9 @@
 .terminal {
-  background: var(--terminal);
-  border: 1px solid var(--border);
+  background: linear-gradient(145deg, rgba(20, 23, 29, 0.92), rgba(5, 6, 8, 0.96));
+  border: 1px solid rgba(210, 220, 235, 0.42);
   border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.04), 0 0 34px rgba(176,190,210,.12), inset 0 1px rgba(255,255,255,.12);
 }
 
 .header {
@@ -56,11 +57,11 @@
 }
 
 .plan {
-  color: var(--teal);
+  color: #d9dfe8;
 }
 
 .exec {
-  color: var(--red-text);
+  color: #aeb8c7;
 }
 
 .res {

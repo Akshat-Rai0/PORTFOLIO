@@ -34,6 +34,7 @@ export default function App() {
         return;
       }
       gsap.utils.toArray(".section").forEach((section) => {
+        if (section.id === "about") return;
         const targets = section.querySelectorAll(".reveal");
         if (!targets.length) return;
         gsap.fromTo(
@@ -56,6 +57,17 @@ export default function App() {
     },
     { dependencies: [reduced] }
   );
+
+  useGSAP(() => {
+    if (reduced) {
+      gsap.set("#about .about-reveal", { opacity: 1, y: 0 });
+      return;
+    }
+    gsap.fromTo("#about .about-reveal", { opacity: 0, y: 44 }, {
+      opacity: 1, y: 0, ease: "none", stagger: 0.18,
+      scrollTrigger: { trigger: "#about", start: "top 88%", end: "bottom 40%", scrub: 0.7 }
+    });
+  }, { dependencies: [reduced] });
 
   return (
     <>

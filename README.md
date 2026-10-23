@@ -33,6 +33,8 @@ VITE_BASE=/PORTFOLIO/ npm run build
 
 Push `main` (or `master`). `.github/workflows/deploy.yml` sets `VITE_BASE` from the repo name, builds, and publishes `dist` to GitHub Pages. Enable Pages with **GitHub Actions** as the source.
 
+GitHub: [github.com/Akshat-Rai0](https://github.com/Akshat-Rai0)
+
 ## How to add a project
 
 Edit `src/data/projects.js` only. Append an object:

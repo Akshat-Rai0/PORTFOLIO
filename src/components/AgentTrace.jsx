@@ -10,21 +10,20 @@ gsap.registerPlugin(TextPlugin);
 export default function AgentTrace({ projectCount }) {
   const rootRef = useRef(null);
   const reduced = useReducedMotion();
-  const resultText = `Akshat · BIT Mesra · class of 2028 · builds LLM agents that plan, execute and retrieve.`;
+  const resultText = ` · BIT Mesra · class of 2028 · builds LLM agents that plan, execute and retrieve.`;
 
   useGSAP(
     () => {
       const root = rootRef.current;
       const command = root.querySelector("[data-command]");
-      const plans = root.querySelectorAll("[data-kind='plan']");
-      const executes = root.querySelectorAll("[data-kind='execute']");
+      const lines = root.querySelectorAll("[data-scroll-line]");
       const checks = root.querySelectorAll("[data-check]");
       const result = root.querySelector("[data-kind='result']");
       const resultCopy = root.querySelector("[data-result-text]");
       const cursor = root.querySelector("[data-cursor]");
 
       if (reduced) {
-        gsap.set([command.closest("p"), ...plans, ...executes, result, cursor], {
+        gsap.set([command.closest("p"), ...lines, cursor], {
           opacity: 1,
           y: 0,
           visibility: "visible"
@@ -34,7 +33,7 @@ export default function AgentTrace({ projectCount }) {
         return;
       }
 
-      gsap.set([command.closest("p"), ...plans, ...executes, result], {
+      gsap.set([command.closest("p"), ...lines], {
         opacity: 0,
         y: 6,
         visibility: "visible"
@@ -47,30 +46,23 @@ export default function AgentTrace({ projectCount }) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: root,
-          start: "top 60%",
-          once: true
+          start: "top 78%",
+          end: "bottom 32%",
+          scrub: 0.7
         }
       });
 
       command.textContent = "";
-      tl.to(command.closest("p"), { opacity: 1, y: 0, duration: 0.2 });
-      tl.to(command, { duration: 0.55, text: fullCommand, ease: "none" });
-      plans.forEach((line) => {
-        tl.to(line, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, "+=0.1");
+      tl.set(command.closest("p"), { opacity: 1, y: 0 }, 0);
+      tl.to(command, { duration: 1, text: fullCommand, ease: "none" }, 0);
+      lines.forEach((line, index) => {
+        const at = 1 + index * 0.8;
+        tl.to(line, { opacity: 1, y: 0, duration: 0.7, ease: "none" }, at);
+        const check = line.querySelector("[data-check]");
+        if (check) tl.to(check, { scale: 1, opacity: 1, duration: 0.2 }, at + 0.5);
       });
-      tl.to({}, { duration: 0.7 });
-      executes.forEach((line, index) => {
-        tl.to(line, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" });
-        tl.to(checks[index], { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(2)" }, "<0.12");
-      });
-      tl.to({}, { duration: 0.28 });
-      tl.to(result, { opacity: 1, y: 0, duration: 0.2 });
-      tl.to(resultCopy, {
-        duration: Math.max(0.4, resultText.length * 0.025),
-        text: resultText,
-        ease: "none"
-      });
-      tl.to(cursor, { opacity: 1, duration: 0.01 });
+      tl.to(resultCopy, { duration: 2.5, text: resultText, ease: "none" }, 1 + lines.length * 0.8);
+      tl.to(cursor, { opacity: 1, duration: 0.01 }, ">-");
     },
     { scope: rootRef, dependencies: [reduced, projectCount] }
   );
@@ -90,37 +82,37 @@ export default function AgentTrace({ projectCount }) {
             $ agent run --task "introduce akshat"
           </span>
         </p>
-        <p data-kind="plan" className={styles.line}>
+        <p data-kind="plan" data-scroll-line className={styles.line}>
           <span className={`${styles.tag} ${styles.plan}`}>[PLAN]</span>
           <span className={styles.rest}>1. who: third-year CSE (AI & ML) at BIT Mesra</span>
         </p>
-        <p data-kind="plan" className={styles.line}>
+        <p data-kind="plan" data-scroll-line className={styles.line}>
           <span className={`${styles.tag} ${styles.plan}`}>[PLAN]</span>
           <span className={styles.rest}>2. focus: agentic AI, planners, tool use, retrieval</span>
         </p>
-        <p data-kind="plan" className={styles.line}>
+        <p data-kind="plan" data-scroll-line className={styles.line}>
           <span className={`${styles.tag} ${styles.plan}`}>[PLAN]</span>
           <span className={styles.rest}>3. proof: projects that actually ship</span>
         </p>
-        <p data-kind="execute" className={styles.line}>
+        <p data-kind="execute" data-scroll-line className={styles.line}>
           <span className={`${styles.tag} ${styles.exec}`}>[EXECUTE]</span>
           <span className={styles.rest}>
             step 1 → profile.read() <span data-check>✓</span>
           </span>
         </p>
-        <p data-kind="execute" className={styles.line}>
+        <p data-kind="execute" data-scroll-line className={styles.line}>
           <span className={`${styles.tag} ${styles.exec}`}>[EXECUTE]</span>
           <span className={styles.rest}>
             step 2 → projects.list() <span data-check>✓</span> {projectCount} results
           </span>
         </p>
-        <p data-kind="execute" className={styles.line}>
+        <p data-kind="execute" data-scroll-line className={styles.line}>
           <span className={`${styles.tag} ${styles.exec}`}>[EXECUTE]</span>
           <span className={styles.rest}>
             step 3 → stack.summarize() <span data-check>✓</span>
           </span>
         </p>
-        <p data-kind="result" className={`${styles.line} ${styles.result}`}>
+        <p data-kind="result" data-scroll-line className={`${styles.line} ${styles.result}`}>
           <span className={`${styles.tag} ${styles.res}`}>[RESULT]</span>
           <span className={styles.rest}>
             <strong>Akshat</strong>

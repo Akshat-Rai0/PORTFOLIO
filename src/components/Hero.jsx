@@ -3,7 +3,6 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Nav from "./Nav.jsx";
-import VantaBackground from "./VantaBackground.jsx";
 import { site } from "../data/site.js";
 import { useIsMobile } from "../hooks/useIsMobile.js";
 import { useReducedMotion } from "../hooks/useReducedMotion.js";
@@ -58,7 +57,6 @@ export default function Hero() {
 
   return (
     <section id="top" ref={heroRef} className={styles.hero} aria-label="Introduction">
-      <VantaBackground active={vantaOn && !fallback} fallback={fallback} />
       <Nav />
       <div className={styles.content}>
         <p className={styles.kicker} data-hero-item>

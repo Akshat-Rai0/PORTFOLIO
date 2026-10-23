@@ -76,7 +76,7 @@ function FlexStage({ projects, index, setIndex, reduced }) {
         intro="none"
         fit="portrait"
         captions={false}
-        captureWheel
+        captureWheel={false}
         focusOnClick={false}
         autoplay={false}
         cardHeight={0.68}
@@ -111,12 +111,8 @@ export default function ProjectCarousel({ projects }) {
   const project = projects[index] || projects[0];
 
   useEffect(() => {
-    if (reduced || isMobile) {
-      setUseFlex(false);
-      return;
-    }
     setUseFlex(hasWebGL2());
-  }, [reduced, isMobile]);
+  }, []);
 
   const go = (delta) => {
     if (useFlex) {
@@ -152,9 +148,9 @@ export default function ProjectCarousel({ projects }) {
     };
 
     const onWheel = (event) => {
-      const horizontal = Math.abs(event.deltaX) > Math.abs(event.deltaY);
-      const delta = horizontal ? event.deltaX : event.deltaY;
-      if (!horizontal && Math.abs(event.deltaY) < 40) return;
+      const horizontal = event.shiftKey || Math.abs(event.deltaX) > Math.abs(event.deltaY);
+      if (!horizontal) return;
+      const delta = event.shiftKey ? event.deltaY : event.deltaX;
       event.preventDefault();
       const now = Date.now();
       if (now - wheelLock < 420) return;

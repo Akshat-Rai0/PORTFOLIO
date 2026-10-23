@@ -6,6 +6,21 @@
   margin-bottom: 8px;
 }
 
+.work {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  padding: clamp(28px, 5vh, 64px) var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.work > :global(.reveal) { width: 100%; }
+.work :global(.flex-carousel) { height: min(76svh, 820px) !important; }
+.work::before { content: ""; position: absolute; inset: 0; background: rgba(12, 10, 15, 0.82); z-index: -1; }
+
 .head .section-label,
 .head p:first-child {
   margin-bottom: 16px;
