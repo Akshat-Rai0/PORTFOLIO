@@ -247,6 +247,8 @@ const FlexCarousel = ({
   captureWheel = true,
   onChange,
   onSelect,
+  action,
+  cardActions,
   className = '',
   style
 }) => {
@@ -881,6 +883,26 @@ const FlexCarousel = ({
           }
         }
         draws.sort((a, b) => Math.abs(b.rel) - Math.abs(a.rel));
+        const nearestDraws = new Map();
+        draws.forEach(draw => {
+          const previous = nearestDraws.get(draw.i);
+          if (!previous || Math.abs(draw.rel) < Math.abs(previous.rel)) nearestDraws.set(draw.i, draw);
+        });
+        container.querySelectorAll('[data-flex-card-action]').forEach(actionElement => {
+          const draw = nearestDraws.get(Number(actionElement.dataset.flexCardAction));
+          const compactLayout = width <= 768;
+          const isActiveCard = draw && Math.abs(draw.rel) < Math.max(draw.cw * 0.34, 32);
+          if (!draw || (compactLayout && !isActiveCard)) {
+            actionElement.style.opacity = '0';
+            actionElement.style.pointerEvents = 'none';
+            return;
+          }
+          const x = Math.max(52, Math.min(width - 52, draw.x + Math.min(draw.cw * 0.28, 104)));
+          const y = Math.max(28, Math.min(height - 34, draw.y + draw.ch * 0.5 - 30));
+          actionElement.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+          actionElement.style.opacity = String(draw.alpha);
+          actionElement.style.pointerEvents = 'auto';
+        });
         let first = true;
         for (const draw of draws) {
           const slot = slots[draw.i];
@@ -1219,6 +1241,7 @@ const FlexCarousel = ({
             {current.title || current.alt}
             {current.subtitle && <span className="flex-carousel__subtitle">{current.subtitle}</span>}
           </span>
+          {action}
           <span className="flex-carousel__count" data-hidden={focusOpen ? '' : undefined}>
             <Digits value={active + 1} />
             <span className="flex-carousel__slash">/</span>
@@ -1226,6 +1249,15 @@ const FlexCarousel = ({
           </span>
         </div>
       )}
+      {cardActions ? (
+        <div className="flex-carousel__card-actions" aria-label="Project links">
+          {list.map((item, index) => (
+            <span className="flex-carousel__card-action" data-flex-card-action={index} key={`${item.src}-${index}`}>
+              {cardActions(item, index)}
+            </span>
+          ))}
+        </div>
+      ) : null}
       <div className="flex-carousel__live" aria-live="polite" aria-atomic="true">
         {`${label}, ${active + 1} of ${list.length}`}
       </div>

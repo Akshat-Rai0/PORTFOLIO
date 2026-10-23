@@ -14,6 +14,7 @@
 .window {
   position: relative;
   max-width: 1272px;
+  margin: 0 auto;
   overflow: hidden;
   container-type: inline-size;
   --tile-w: calc((100cqw - 5 * 10px) / 6);
@@ -28,6 +29,7 @@
 .track {
   display: flex;
   gap: 10px;
+  padding-right: 10px;
   width: max-content;
   will-change: transform;
   animation: marquee-left linear infinite;

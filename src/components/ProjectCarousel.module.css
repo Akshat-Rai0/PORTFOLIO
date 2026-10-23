@@ -1,4 +1,5 @@
 .stage {
+  touch-action: pan-y;
   position: relative;
   height: 700px;
   border-radius: 28px;
@@ -48,7 +49,8 @@
   color: var(--text);
   font-size: 28px;
   line-height: 1;
-  z-index: 4;
+  z-index: 10;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
 }
 
 .prev {
@@ -57,6 +59,21 @@
 
 .next {
   right: 20px;
+}
+
+.ctrl:hover {
+  background: rgba(210, 220, 235, 0.16);
+  border-color: rgba(230, 236, 245, 0.78);
+  transform: scale(1.06);
+}
+
+.ctrl:active {
+  transform: scale(0.96);
+}
+
+.ctrl:focus-visible {
+  border-color: rgba(230, 236, 245, 0.92);
+  box-shadow: 0 0 0 3px rgba(200, 210, 225, 0.24);
 }
 
 .caption {
@@ -103,6 +120,65 @@
   font-size: 16px;
 }
 
+.moreInfo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  margin-top: 0;
+  padding: 6px 12px;
+  border: 1px solid rgba(210, 220, 235, 0.55);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 13px;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+
+.moreInfo:hover,
+.moreInfo:focus-visible {
+  background: rgba(210, 220, 235, 0.12);
+  border-color: rgba(230, 236, 245, 0.9);
+}
+
+.moreInfo:active {
+  transform: translateY(1px);
+}
+
+.moreInfo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border: 1px solid rgba(222, 228, 238, .62);
+  border-radius: 999px;
+  color: #f4f6f9;
+  background: linear-gradient(115deg, rgba(75,80,90,.9), rgba(190,198,210,.56), rgba(75,80,90,.9));
+  background-size: 220% 100%;
+  box-shadow: 0 0 14px rgba(210,220,235,.3), inset 0 1px rgba(255,255,255,.38);
+  font-size: 11px;
+  text-decoration: none;
+  text-shadow: 0 1px 4px #000;
+  animation: silverShine 3s ease-in-out infinite;
+}
+
+.moreInfo:hover,
+.moreInfo:focus-visible {
+  color: #fff;
+  box-shadow: 0 0 22px rgba(230,236,245,.58), inset 0 1px rgba(255,255,255,.6);
+}
+
+
+@keyframes silverShine {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moreInfo { animation: none; }
+}
+
 @media (max-width: 768px) {
   .stage {
     height: 560px;
@@ -116,4 +192,5 @@
   .row {
     gap: 8px;
   }
+
 }

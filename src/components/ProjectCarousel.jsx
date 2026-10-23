@@ -4,6 +4,7 @@ import { mapProjectsToFlexItems } from "../data/projects.js";
 import { useIsMobile } from "../hooks/useIsMobile.js";
 import { useReducedMotion } from "../hooks/useReducedMotion.js";
 import styles from "./ProjectCarousel.module.css";
+import { site } from "../data/site.js";
 
 const FlexCarousel = lazy(() => import("../vendor/FlexCarousel/FlexCarousel.jsx"));
 
@@ -25,7 +26,6 @@ function Caption({ project, index, total }) {
   const count = String(total).padStart(2, "0");
   return (
     <div className={styles.caption}>
-      <p className={styles.captionTitle}>{project.title}</p>
       <p className={styles.counter}>
         {current} / {count}
       </p>
@@ -76,7 +76,20 @@ function FlexStage({ projects, index, setIndex, reduced }) {
         intro="none"
         fit="portrait"
         captions={false}
-        captureWheel={false}
+        cardActions={(item) => (
+          <a
+            className={styles.moreInfo}
+            href={site.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
+            aria-label={`Open ${item.title} on GitHub`}
+          >
+            GitHub ↗
+          </a>
+        )}
+        captureWheel
         focusOnClick={false}
         autoplay={false}
         cardHeight={0.68}
@@ -148,9 +161,9 @@ export default function ProjectCarousel({ projects }) {
     };
 
     const onWheel = (event) => {
-      const horizontal = event.shiftKey || Math.abs(event.deltaX) > Math.abs(event.deltaY);
-      if (!horizontal) return;
-      const delta = event.shiftKey ? event.deltaY : event.deltaX;
+      const horizontal = Math.abs(event.deltaX) > Math.abs(event.deltaY);
+      const delta = horizontal ? event.deltaX : event.deltaY;
+      if (!horizontal && Math.abs(event.deltaY) < 40) return;
       event.preventDefault();
       const now = Date.now();
       if (now - wheelLock < 420) return;
